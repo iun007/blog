@@ -14,4 +14,12 @@ npm install -g express-generator
 SET DEBUG=blog:* & npm start
 ```
 
+#四、提交远程仓库
+```
+git init 初始化仓库
+git add -A 把所有的文件添加到暂存区
+git commit -m"初始化珠峰博客" 把所有的修改添加到历史区
+git remote add origin https://github.com/zhufengnodejs/zhufengblog.git 添加远程仓库的关联
+git push -u origin master 把本地的仓库推送到远程服务器上去
+```
 
