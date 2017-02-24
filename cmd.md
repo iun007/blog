@@ -23,3 +23,17 @@ git remote add origin https://github.com/zhufengnodejs/zhufengblog.git 添加远
 git push -u origin master 把本地的仓库推送到远程服务器上去
 ```
 
+#五、安装bower
+```
+npm install bower -g
+```
+
+#编写.bowerrc配置文件并指定下载包的安装目录
+```
+{"directory":"./public/lib"}
+```
+
+#六、安装bootstrap
+```
+bower install bootstrap
+```
