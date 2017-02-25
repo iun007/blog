@@ -1,3 +1,9 @@
+#切换npm淘宝镜像源
+```
+$ npm config set registry http://registry.npm.taobao.org
+$ npm config set loglevel=http
+```
+
 #一、安装生成器
 ```
 npm install -g express-generator
@@ -18,8 +24,8 @@ SET DEBUG=blog:* & npm start
 ```
 git init 初始化仓库
 git add -A 把所有的文件添加到暂存区
-git commit -m"初始化珠峰博客" 把所有的修改添加到历史区
-git remote add origin https://github.com/zhufengnodejs/zhufengblog.git 添加远程仓库的关联
+git commit -m"初始化blog" 把所有的修改添加到历史区
+git remote add origin https://github.com/iun007/blog.git 添加远程仓库的关联
 git push -u origin master 把本地的仓库推送到远程服务器上去
 ```
 
