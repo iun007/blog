@@ -7,10 +7,16 @@ router.get('/reg', function(req, res, next) {
 });
 
 router.post('/reg', function(req, res, next) {
-  models.User.create(req.body,function (err,doc) {
-    console.log(doc);
-    res.redirect('/users/login')
-  })
+  var user=req.body;
+  if(user.password != user.repassword){
+    res.redirect('back')
+  }else{
+    models.User.create(req.body,function (err,doc) {
+      console.log(doc);
+      res.redirect('/users/login')
+    })
+  }
+
 });
 //登陆
 router.get('/login', function(req, res, next) {
