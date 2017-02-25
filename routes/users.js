@@ -1,5 +1,6 @@
 var express = require('express');
 var models=require('../models');
+var util=require('../util');
 var router = express.Router();
 //注册
 router.get('/reg', function(req, res, next) {
@@ -11,6 +12,7 @@ router.post('/reg', function(req, res, next) {
   if(user.password != user.repassword){
     res.redirect('back')
   }else{
+    user.password=util.md5(user.password);
     models.User.create(req.body,function (err,doc) {
       console.log(doc);
       res.redirect('/users/login')
@@ -24,6 +26,7 @@ router.get('/login', function(req, res, next) {
 });
 
 router.post('/login', function(req, res, next) {
+  req.body.password=util.md5(req.body.password);
   models.User.findOne({username:req.body.username,password:req.body.password},function (err,doc) {
     if(err){
       res.redirect('back')
