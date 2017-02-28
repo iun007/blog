@@ -12,7 +12,7 @@ router.post('/reg', function(req, res, next) {
   if(user.password != user.repassword){
     res.redirect('back')
   }else{
-    user.password=util.md5(user.password);
+    req.body.password=util.md5(req.body.password);
     models.User.create(req.body,function (err,doc) {
       console.log(doc);
       res.redirect('/users/login')
@@ -29,9 +29,12 @@ router.post('/login', function(req, res, next) {
   req.body.password=util.md5(req.body.password);
   models.User.findOne({username:req.body.username,password:req.body.password},function (err,doc) {
     if(err){
+      console.log(err);
       res.redirect('back')
     }else{
       if(doc){//如果有值表示找到了对应用户，表示登陆成功了
+        //登陆成功把查询到的用户赋值给session的user属性
+        req.session.user=doc;
         res.redirect('/')
       }else{//找不到登录失败
         res.redirect('back')
@@ -43,7 +46,8 @@ router.post('/login', function(req, res, next) {
 
 //退出
 router.get('/logout', function(req, res, next) {
-  res.render('index', { title: '退出' });
+  req.session.user=null;
+  res.redirect('/')
 });
 
 module.exports = router;

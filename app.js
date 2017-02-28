@@ -8,6 +8,11 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var articles = require('./routes/articles');
+var config=require('./config');
+
+//引入session中间,req.session
+var session=require('express-session');
+var MongoStore=require('connect-mongo')(session);
 
 var app = express();
 
@@ -20,7 +25,21 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(cookieParser());
+app.use(session({
+    secret:'zfpx',
+    resave:true,
+    saveUninitialized:true, //保存新创建但未初始化的session
+    store:new MongoStore({
+        url:config.dbUrl
+    })
+}));
+app.use(function (req,res,next) {
+    //res.locals才是真正的渲染模板的对象
+    res.locals.user=req.session.user;
+    next()
+});
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
