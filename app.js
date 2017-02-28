@@ -13,8 +13,10 @@ var config=require('./config');
 //引入session中间,req.session
 var session=require('express-session');
 var MongoStore=require('connect-mongo')(session);
+var flash=require('connect-flash');
 
 var app = express();
+app.set('env',process.env.ENV);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -35,9 +37,13 @@ app.use(session({
         url:config.dbUrl
     })
 }));
+app.use(flash());
+
 app.use(function (req,res,next) {
     //res.locals才是真正的渲染模板的对象
     res.locals.user=req.session.user;
+    res.locals.success=req.flash('success').toString(); //不加toString成功失败操作提示都显示
+    res.locals.error=req.flash('error').toString();
     next()
 });
 app.use(express.static(path.join(__dirname, 'public')));
