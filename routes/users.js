@@ -15,7 +15,9 @@ router.post('/reg',auth.checkNotLogin,function(req, res, next) {
   if(user.password != user.repassword){
     res.redirect('back')
   }else{
-    req.body.password=util.md5(req.body.password);
+      req.body.password=util.md5(req.body.password);
+      //增加一个用户头像
+      req.body.avatar='https://secure.gravatar.com/avatar/'+util.md5(req.body.email)+'?s=64';
     models.User.create(req.body,function (err,doc) {
       if(err){
         req.flash('error','用户注册失败');
