@@ -10,9 +10,8 @@ articles.forEach(function (article) {
     </div>
     <div class="media-body">
         <h4 class="media-heading"><%=article.title%></h4>
-        <p><%=article.content%></p>
+        <p><%-article.content%></p>
     </div>
-
     <div class="media-bottom">
         作者:<%=article.user.username%> 发表时间:<%=article.createAt.toLocaleString()%>
 
