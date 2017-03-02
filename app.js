@@ -44,6 +44,7 @@ app.use(function (req,res,next) {
     res.locals.user=req.session.user;
     res.locals.success=req.flash('success').toString(); //不加toString成功失败操作提示都显示
     res.locals.error=req.flash('error').toString();
+    res.locals.keywords=req.session.keywords;
     next()
 });
 app.use(express.static(path.join(__dirname, 'public')));
