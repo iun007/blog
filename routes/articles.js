@@ -65,7 +65,7 @@ router.post('/add',auth.checkLogin,upload.single('poster'),function(req, res, ne
 router.get('/detail/:_id',function (req,res) {
     //路径参数
     var _id=req.params._id;
-    models.Article.findById(_id,function (err,article) {
+    models.Article.findById(_id).populate('comments.user').exec(function (err,article) {
         article.content=markdown.toHTML(article.content);
         res.render('article/detail',{article:article})
     })
@@ -86,6 +86,19 @@ router.get('/edit/:_id',function (req,res) {
     models.Article.findById(_id,function (err,article) {
         res.render('article/add',{article:article})
     })
+
+});
+
+router.post('/comment',auth.checkLogin, function (req, res) {
+    var user = req.session.user;
+    models.Article.update({_id:req.body._id},{$push:{comments:{user:user._id,content:req.body.content}}},function(err,result){
+        if(err){
+            req.flash('error',err);
+            return res.redirect('back');
+        }
+        req.flash('success', '评论成功!');
+        res.redirect('back');
+    });
 
 });
 
