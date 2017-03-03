@@ -62,7 +62,7 @@ router.post('/add',auth.checkLogin,upload.single('poster'),function(req, res, ne
 
 });
 
-router.get('/detail/:_id',function (req,res) {
+router.get('/detail/:_id',auth.checkLogin,function (req,res) {
     //路径参数
     var _id=req.params._id;
     models.Article.update({_id:_id},{$inc:{pv:1}},function (err,result) {
