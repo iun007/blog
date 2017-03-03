@@ -9,7 +9,7 @@ articles.forEach(function (article) {
         </a>
     </div>
     <div class="media-body">
-        <h4 class="media-heading"><%=article.title%></h4>
+        <h4 class="media-heading"><a href="/articles/detail/<%=article._id%>"><%=article.title%></a></h4>
         <p><%-article.content%></p>
     </div>
     <div class="media-bottom">
