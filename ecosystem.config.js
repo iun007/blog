@@ -15,7 +15,7 @@ module.exports = {
       env_production : {
         NODE_ENV: "production"
       }
-    }
+    },
   ],
 
   /**
@@ -24,11 +24,11 @@ module.exports = {
    */
   deploy : {
     production : {
-      user : "root",
-      host : "212.83.163.1",
-      ref  : "origin/master",
-      repo : "https://github.com/iun007/blog.git",
-      path : "/var/www/production",
+        user : "root",
+        host : "212.83.163.1",
+        ref  : "origin/master",
+        repo : "https://github.com/iun007/blog.git",
+        path : "/var/www/production",
       "post-deploy" : "npm install && pm2 startOrRestart ecosystem.config.js --env production"
     },
   }
