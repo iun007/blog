@@ -27,7 +27,7 @@ module.exports = {
         user : "root",
         host : "123.56.99.220",
         ref  : "origin/master",
-        repo : "git@github.com:iun007/blog.git",
+        repo : "https://github.com/iun007/blog.git",
         path : "/var/production",
       "post-deploy" : "npm install && pm2 startOrRestart ecosystem.config.js --env production"
     },
